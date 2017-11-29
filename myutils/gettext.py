@@ -6,8 +6,8 @@ import pprint
 
 pp = pprint.PrettyPrinter(indent=4)
 # our boto3 rekognition client
-AWS_ACCESS_KEY_ID="*****"
-AWS_SECRET_ACCESS_KEY="*****"
+AWS_ACCESS_KEY_ID="****"
+AWS_SECRET_ACCESS_KEY="***"
 
 conn = boto.connect_s3(AWS_ACCESS_KEY_ID,
                 AWS_SECRET_ACCESS_KEY)
@@ -51,9 +51,11 @@ def find_label(key,bucket):
     labeldata = response['Labels']
     pp.pprint(labeldata)
     for items in labeldata:
-        if items['Name'] == "Car" and items['Confidence'] > 60:
+        if items['Name'] == "Car" and items['Confidence'] < 75:
            data =  " i got a parking spot for you come on in "
            print data
+        else:
+           data = "sorry no parking slot for you"
     return  data
 
 def find_s3_items():
